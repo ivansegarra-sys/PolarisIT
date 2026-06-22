@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polaris IT · Técnico Informático</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --void:    #05080F;
+      --deep:    #0A1020;
+      --card:    #0E1628;
+      --border:  rgba(196,165,100,0.18);
+      --gold:    #C4A564;
+      --gold2:   #E8D49A;
+      --silver:  #8BA8CC;
+      --white:   #F0F4FF;
+      --muted:   #5C7A9A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--void);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── STARS CANVAS ── */
+    #stars-canvas {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 6%;
+      background: rgba(5,8,15,0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .7rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.15rem;
+      letter-spacing: .02em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo .star-mark {
+      width: 28px; height: 28px;
+      flex-shrink: 0;
+    }
+    .nav-logo .brand-it { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; letter-spacing: .04em;
+      color: var(--muted); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 6%;
+      overflow: hidden;
+    }
+
+    /* North Star beam */
+    .polar-beam {
+      position: absolute;
+      top: 0; right: 18%;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent 0%, rgba(196,165,100,.35) 35%, rgba(196,165,100,.08) 70%, transparent 100%);
+      pointer-events: none;
+    }
+    .polar-beam::before {
+      content: '';
+      position: absolute;
+      top: 28%; left: 50%; transform: translate(-50%,-50%);
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(196,165,100,.22) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: starGlow 4s ease-in-out infinite;
+    }
+    @keyframes starGlow {
+      0%,100% { opacity: .7; transform: translate(-50%,-50%) scale(1); }
+      50%      { opacity: 1;  transform: translate(-50%,-50%) scale(1.18); }
+    }
+
+    /* 8-pointed Polaris star SVG */
+    .hero-star {
+      position: absolute;
+      top: 28%; right: 18%;
+      transform: translate(50%,-50%);
+      width: 64px; height: 64px;
+      animation: rotateStar 40s linear infinite, starGlow 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes rotateStar {
+      from { transform: translate(50%,-50%) rotate(0deg); }
+      to   { transform: translate(50%,-50%) rotate(360deg); }
+    }
+
+    .hero-eyebrow {
+      position: relative; z-index: 2;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.4rem;
+    }
+    h1 {
+      position: relative; z-index: 2;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300; line-height: 1.05;
+      letter-spacing: -0.01em;
+      max-width: 680px;
+      margin-bottom: 1.6rem;
+    }
+    h1 strong {
+      font-weight: 600;
+      background: linear-gradient(120deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      position: relative; z-index: 2;
+      font-size: 1rem; color: var(--silver);
+      max-width: 440px; margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+    .hero-cta {
+      position: relative; z-index: 2;
+      display: inline-flex; align-items: center; gap: .65rem;
+      border: 1px solid var(--gold);
+      color: var(--gold); background: transparent;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600; font-size: 0.88rem; letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .9rem 2.2rem; border-radius: 2px;
+      text-decoration: none;
+      transition: background .25s, color .25s;
+    }
+    .hero-cta:hover {
+      background: var(--gold);
+      color: var(--void);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 0 6%; margin: 1rem 0;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-star { color: var(--gold); font-size: 1rem; }
+
+    /* ── SERVICES ── */
+    .services {
+      position: relative; z-index: 1;
+      padding: 6rem 6% 5rem;
+    }
+    .section-label {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: .9rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400; letter-spacing: -0.01em;
+      margin-bottom: 3rem;
+      line-height: 1.15;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .card {
+      background: var(--card);
+      padding: 2.2rem;
+      transition: background .25s;
+      position: relative;
+    }
+    .card:hover { background: #111c30; }
+    .card-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem; font-weight: 300;
+      color: rgba(196,165,100,.18);
+      line-height: 1;
+      margin-bottom: .6rem;
+      letter-spacing: -.03em;
+    }
+    .card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .95rem; font-weight: 600;
+      margin-bottom: .6rem;
+      color: var(--white);
+    }
+    .card p {
+      font-size: 0.85rem; color: var(--muted); line-height: 1.75;
+    }
+    .card-border-bottom {
+      position: absolute; bottom: 0; left: 2.2rem; right: 2.2rem;
+      height: 1px; background: var(--border);
+    }
+
+    /* ── WHY ── */
+    .why {
+      position: relative; z-index: 1;
+      padding: 5rem 6%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .why-text .section-title { margin-bottom: 1.2rem; }
+    .why-text p { color: var(--silver); font-size: 0.92rem; line-height: 1.85; margin-bottom: 1rem; }
+    .why-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden;
+    }
+    .stat {
+      background: var(--card);
+      padding: 2rem 1.4rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem; font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-lbl { font-size: 0.75rem; color: var(--muted); margin-top: .5rem; letter-spacing: .05em; }
+
+    /* ── CONTACT ── */
+    .contact {
+      position: relative; z-index: 1;
+      padding: 6rem 6%;
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner {
+      max-width: 760px; margin: 0 auto; text-align: center;
+    }
+    .contact-inner .section-title { margin-bottom: .8rem; }
+    .contact-inner > p { color: var(--silver); margin-bottom: 3.5rem; font-size: .95rem; }
+
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .contact-card {
+      background: var(--card);
+      padding: 2rem 1.4rem;
+      text-decoration: none;
+      transition: background .2s;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .contact-card:hover { background: #111c30; }
+    .contact-card .cc-icon { color: var(--gold); margin-bottom: .9rem; }
+    .contact-card .cc-label {
+      font-size: 0.68rem; color: var(--muted);
+      letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: .35rem;
+    }
+    .contact-card .cc-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600; font-size: .88rem;
+      color: var(--white); word-break: break-all;
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      padding: 2.2rem 6%;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.78rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: .5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600; color: var(--white);
+    }
+    .footer-logo .brand-it { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .why { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-star, .polar-beam { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Starfield canvas -->
+<canvas id="stars-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <!-- inline Polaris 8-point star -->
+    <svg class="star-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 2 L15.2 12 L24 14 L15.2 16 L14 26 L12.8 16 L4 14 L12.8 12 Z" fill="#C4A564"/>
+      <path d="M14 7 L14.6 12.4 L20 14 L14.6 15.6 L14 21 L13.4 15.6 L8 14 L13.4 12.4 Z" fill="#E8D49A" opacity=".6"/>
+    </svg>
+    Polaris <span class="brand-it">IT</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="polar-beam"></div>
+  <!-- Polaris star decoration -->
+  <svg class="hero-star" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M32 4 L34.5 28 L58 32 L34.5 36 L32 60 L29.5 36 L6 32 L29.5 28 Z" fill="#C4A564" opacity=".9"/>
+    <path d="M32 16 L33.4 28 L46 32 L33.4 36 L32 48 L30.6 36 L18 32 L30.6 28 Z" fill="#E8D49A" opacity=".7"/>
+    <circle cx="32" cy="32" r="3" fill="white"/>
+  </svg>
+
+  <p class="hero-eyebrow">★ Técnico informático · Mallorca</p>
+  <h1>Tu guía en el<br /><strong>universo digital</strong></h1>
+  <p class="hero-sub">Reparación, mantenimiento y soporte informático para particulares y empresas. Siempre orientados hacia la solución.</p>
+  <a class="hero-cta" href="#contacto">
+    <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7.8 2 2 0 015 5.61h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L9.09 13.5a16 16 0 006.29 6.29l1.25-1.26a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Contáctanos
+  </a>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-star">✦</span><div class="divider-line"></div></div>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <p class="section-label">Servicios</p>
+  <h2 class="section-title">Lo que hacemos<br />por ti</h2>
+  <div class="services-grid">
+
+    <div class="card">
+      <div class="card-num">01</div>
+      <h3>Reparación de ordenadores</h3>
+      <p>Diagnóstico y reparación de portátiles y sobremesas: pantallas rotas, teclados, conectores y placas base.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-num">02</div>
+      <h3>Instalación de sistemas</h3>
+      <p>Windows, macOS y Linux. Configuración de drivers, actualizaciones y optimización completa del rendimiento.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-num">03</div>
+      <h3>Eliminación de virus</h3>
+      <p>Limpieza de malware, adware y ransomware. Protección y configuración de antivirus personalizada.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-num">04</div>
+      <h3>Recuperación de datos</h3>
+      <p>Recuperamos archivos borrados y discos dañados. Copias de seguridad y migración entre dispositivos.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-num">05</div>
+      <h3>Redes y WiFi</h3>
+      <p>Instalación de routers, redes domésticas y corporativas. Extensores WiFi y diagnóstico de conectividad.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-num">06</div>
+      <h3>Mantenimiento preventivo</h3>
+      <p>Revisión periódica, limpieza de hardware y optimización del sistema para prevenir futuros problemas.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-star">✦</span><div class="divider-line"></div></div>
+
+<!-- WHY -->
+<section class="why" id="nosotros">
+  <div class="why-text">
+    <p class="section-label">Nosotros</p>
+    <h2 class="section-title">Orientados<br />siempre al norte</h2>
+    <p>Como la Estrella Polar guía a los navegantes, en Polaris IT somos el punto de referencia fijo cuando tu tecnología falla. Técnicos con años de experiencia en todo tipo de problemas informáticos.</p>
+    <p>Nos desplazamos a domicilio o puedes traernos el equipo. Presupuesto sin compromiso y soluciones rápidas para no quedarte sin tu dispositivo más de lo necesario.</p>
+  </div>
+  <div class="why-stats">
+    <div class="stat">
+      <div class="stat-num">+500</div>
+      <div class="stat-lbl">Equipos reparados</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24h</div>
+      <div class="stat-lbl">Tiempo de respuesta</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-lbl">Presupuesto gratis</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2</div>
+      <div class="stat-lbl">Técnicos disponibles</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-star">✦</span><div class="divider-line"></div></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contacto">
+  <div class="contact-inner">
+    <p class="section-label">Contacto</p>
+    <h2 class="section-title">Encuentra tu norte.<br />Llámanos.</h2>
+    <p>Escríbenos o llámanos directamente. Atendemos en Mallorca y alrededores, sin compromiso.</p>
+
+    <div class="contact-cards">
+      <a class="contact-card" href="tel:644851666">
+        <div class="cc-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7.8 2 2 0 015 5.61h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L9.09 13.5a16 16 0 006.29 6.29l1.25-1.26a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <div class="cc-label">Teléfono · Iván</div>
+        <div class="cc-value">644 851 666</div>
+      </a>
+
+      <a class="contact-card" href="tel:622673966">
+        <div class="cc-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 7.8 2 2 0 015 5.61h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L9.09 13.5a16 16 0 006.29 6.29l1.25-1.26a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <div class="cc-label">Teléfono · Jakub</div>
+        <div class="cc-value">622 673 966</div>
+      </a>
+
+      <a class="contact-card" href="mailto:ivansegarra@gmail.com">
+        <div class="cc-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <div class="cc-label">Email · Iván</div>
+        <div class="cc-value">ivansegarra@gmail.com</div>
+      </a>
+
+      <a class="contact-card" href="mailto:jakubkubakraska@gmail.com">
+        <div class="cc-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <div class="cc-label">Email · Jakub</div>
+        <div class="cc-value">jakubkubakraska@gmail.com</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <svg width="18" height="18" viewBox="0 0 28 28" fill="none"><path d="M14 2 L15.2 12 L24 14 L15.2 16 L14 26 L12.8 16 L4 14 L12.8 12 Z" fill="#C4A564"/></svg>
+    Polaris <span class="brand-it">IT</span>
+  </div>
+  <span>© 2025 · Mallorca · Técnico informático</span>
+</footer>
+
+<script>
+  // Starfield
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function initStars() {
+    stars = [];
+    const count = Math.floor((canvas.width * canvas.height) / 4000);
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.2 + 0.2,
+        alpha: Math.random(),
+        delta: (Math.random() * 0.004 + 0.001) * (Math.random() < .5 ? 1 : -1),
+        gold: Math.random() < 0.06
+      });
+    }
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const s of stars) {
+      s.alpha += s.delta;
+      if (s.alpha <= 0 || s.alpha >= 1) s.delta *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.gold
+        ? `rgba(196,165,100,${s.alpha})`
+        : `rgba(180,200,240,${s.alpha * 0.7})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  resize();
+  initStars();
+  drawStars();
+</script>
+</body>
+</html>
